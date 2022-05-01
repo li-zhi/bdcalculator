@@ -41,9 +41,10 @@ class InterpolationUtils(object):
                     segmentOfInterest = i
                     break
 
-            rate = cls.computeRate(distInLogScale, distBegin, yk, d[segmentOfInterest], c[segmentOfInterest], b[segmentOfInterest])
+            rate = cls.computeRate(
+                distInLogScale, distBegin, yk, d[segmentOfInterest], c[segmentOfInterest], b[segmentOfInterest])
             rate = min(rate, log_rate[segmentOfInterest + 1])
-            rate = max(rate, log_rate[segmentOfInterest]) # make sure interpolated rate is within bounds
+            rate = max(rate, log_rate[segmentOfInterest])  # make sure interpolated rate is within bounds
             arrayRate.append(rate)
 
         return arrayRate
@@ -89,9 +90,11 @@ class InterpolationUtils(object):
         # // determine slope at starting point
         d.append(cls.pchipend(H[0], H[1], delta[0], delta[1]))
 
-        # // determine slope at all intermediate points: slope is weighted harmonic mean of two slopes (delta_{i-1} and delta_i)
+        # // determine slope at all intermediate points: slope is weighted harmonic mean of two slopes (delta_{i-1}
+        # and delta_i)
         for i in range(1, N-1):
-            d.append((3 * H[i - 1] + 3 * H[i]) / ((2 * H[i] + H[i - 1]) / delta[i - 1] + (H[i] + 2 * H[i - 1]) / delta[i]))
+            d.append((3 * H[i - 1] + 3 * H[i]) /
+                     ((2 * H[i] + H[i - 1]) / delta[i - 1] + (H[i] + 2 * H[i - 1]) / delta[i]))
 
         # // determine slope at end point
         d.append(cls.pchipend(H[N - 2], H[N - 3], delta[N - 2], delta[N - 3]))
