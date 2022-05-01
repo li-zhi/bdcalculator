@@ -1,2 +1,3 @@
 numpy
 flake8
+setupmeta
