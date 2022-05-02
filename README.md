@@ -13,7 +13,7 @@ https://docs.google.com/document/d/17xuKoD-O77b9c5CqYntMBMWEKC0yanTwtCnt8MatAOQ/
 tox
 ```
 
-## Run tests only
+## Run tests with coverage
 
 ```
 tox -e python

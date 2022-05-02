@@ -2,3 +2,4 @@ numpy
 flake8
 setupmeta
 tox
+pytest
