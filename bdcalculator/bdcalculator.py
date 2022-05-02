@@ -76,20 +76,8 @@ class BDrateCalculator(object):
 
     @staticmethod
     def isCurveMonotonic(set_: list[tuple]) -> bool:
-        for i in range(len(set_) - 1):
-
-            # ==== added by zli =======
-            if set_[i][0] >= set_[i + 1][0]:
-                return False
-            # ==== added by zli =======
-
-            # ==== added by zli =======
-            # if set_[i][1] > set_[i + 1][1]:
-            if set_[i][1] >= set_[i + 1][1]:
-                # ==== added by zli =======
-                return False
-
-        return True
+        rs, qs = zip(*set_)
+        return np.all(np.diff(rs) > 0) and np.all(np.diff(qs) > 0)
 
     @staticmethod
     def ratesHaveZeroValueWhichIsNotOk(set_: list[tuple]) -> bool:
