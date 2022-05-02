@@ -19,6 +19,11 @@ tox
 tox -e python
 ```
 
+To run a single test (for example):
+```
+PYTHONPATH=bdcalculator python3 -m unittest test.bdcalculator_test.BDrateCalculatorTest.test_bd_rate_calculator_identical
+```
+
 ## Run style check only
 
 ```
