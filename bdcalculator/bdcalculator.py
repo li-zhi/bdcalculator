@@ -50,10 +50,10 @@ class BDrateCalculator(object):
         if not cls.isCurveMonotonic(setB):
             raise cls.NonMonotonic()
 
-        if not cls.ratesHaveZeroValueWhichIsNotOk(setA):
+        if not cls.ratesDoNotHaveZeroValueWhichIsGood(setA):
             raise cls.RatesHaveZeroValue()
 
-        if not cls.ratesHaveZeroValueWhichIsNotOk(setB):
+        if not cls.ratesDoNotHaveZeroValueWhichIsGood(setB):
             raise cls.RatesHaveZeroValue()
 
         minMainPSNR = setA[0][1]
@@ -80,7 +80,7 @@ class BDrateCalculator(object):
         return np.all(np.diff(rs) > 0) and np.all(np.diff(qs) > 0)
 
     @staticmethod
-    def ratesHaveZeroValueWhichIsNotOk(set_: list[tuple]) -> bool:
+    def ratesDoNotHaveZeroValueWhichIsGood(set_: list[tuple]) -> bool:
         for i in range(len(set_)):
             if set_[i][0] == 0:
                 return False
