@@ -81,10 +81,8 @@ class BDrateCalculator(object):
 
     @staticmethod
     def ratesDoNotHaveZeroValueWhichIsGood(set_: list[tuple]) -> bool:
-        for i in range(len(set_)):
-            if set_[i][0] == 0:
-                return False
-        return True
+        rs, qs = zip(*set_)
+        return np.all(np.array(rs) > 0.0)
 
     # // BD-rate calculation for arbitrary number (N) points
     # // cf. https://www.mathworks.com/moler/interp.pdf, sections 3.3 - 3.4
