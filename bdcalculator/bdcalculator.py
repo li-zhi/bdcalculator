@@ -39,10 +39,10 @@ class BDrateCalculator(object):
         if not cls.isCurveMonotonic(setB):
             raise AssertionError(cls.REJECTED_BD_RATE_NON_MONOTONIC)
 
-        if not cls.ratesLookOkay(setA):
+        if not cls.ratesHaveZeroValueWhichIsNotOk(setA):
             raise AssertionError(cls.REJECTED_BD_RATE_MESSED_UP_RATE)
 
-        if not cls.ratesLookOkay(setB):
+        if not cls.ratesHaveZeroValueWhichIsNotOk(setB):
             raise AssertionError(cls.REJECTED_BD_RATE_MESSED_UP_RATE)
 
         minMainPSNR = setA[0][1]
@@ -81,7 +81,7 @@ class BDrateCalculator(object):
         return True
 
     @staticmethod
-    def ratesLookOkay(set_: list[tuple]) -> bool:
+    def ratesHaveZeroValueWhichIsNotOk(set_: list[tuple]) -> bool:
         for i in range(len(set_)):
             if set_[i][0] == 0:
                 return False
