@@ -12,10 +12,20 @@ class BDrateCalculator(object):
     http://phenix.it-sudparis.eu/jct/doc_end_user/documents/5_Geneva/wg11/JCTVC-E137-v1.zip
     """
 
-    REJECTED_BD_RATE_NO_OVERLAP = -10000
-    REJECTED_BD_RATE_NON_MONOTONIC = -20000
-    REJECTED_BD_RATE_MESSED_UP_RATE = -30000
-    REJECTED_BALANCE_BAD_MEASUREMENTS = -40000
+    class NoOverlapError(Exception):
+        pass
+
+    class NonMonotonic(Exception):
+        pass
+
+    class RatesHaveZeroValue(Exception):
+        pass
+
+    class BalanceBadMeasurements(Exception):
+        pass
+
+    class RDpointsLessThanFour(Exception):
+        pass
 
     @staticmethod
     def _dedup_and_order(set_: list[tuple]) -> list[tuple]:
@@ -29,21 +39,22 @@ class BDrateCalculator(object):
         setB = cls._dedup_and_order(setB)
         # ==== added by zli =======
 
-        assert not (len(setA) < 4 or len(setB) < 4), \
-            "Problem with input RD point lists. setA is size {}, " \
-            "setB is size {}".format(len(setA), len(setB))
+        try:
+            assert not (len(setA) < 4 or len(setB) < 4)
+        except AssertionError:
+            raise cls.RDpointsLessThanFour()
 
         if not cls.isCurveMonotonic(setA):
-            raise AssertionError(cls.REJECTED_BD_RATE_NON_MONOTONIC)
+            raise cls.NonMonotonic()
 
         if not cls.isCurveMonotonic(setB):
-            raise AssertionError(cls.REJECTED_BD_RATE_NON_MONOTONIC)
+            raise cls.NonMonotonic()
 
         if not cls.ratesHaveZeroValueWhichIsNotOk(setA):
-            raise AssertionError(cls.REJECTED_BD_RATE_MESSED_UP_RATE)
+            raise cls.RatesHaveZeroValue()
 
         if not cls.ratesHaveZeroValueWhichIsNotOk(setB):
-            raise AssertionError(cls.REJECTED_BD_RATE_MESSED_UP_RATE)
+            raise cls.RatesHaveZeroValue()
 
         minMainPSNR = setA[0][1]
         maxMainPSNR = setA[-1][1]
@@ -55,7 +66,7 @@ class BDrateCalculator(object):
 
         # no overlap, so mark it in a special way
         if minPSNR >= maxPSNR:
-            raise AssertionError(cls.REJECTED_BD_RATE_NO_OVERLAP)
+            raise cls.NoOverlapError()
 
         vA = cls.bdrint(setA, minPSNR, maxPSNR)
         vB = cls.bdrint(setB, minPSNR, maxPSNR)
