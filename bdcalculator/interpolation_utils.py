@@ -106,7 +106,7 @@ class InterpolationUtils(object):
             b.append((d[i] - 2 * delta[i] + d[i + 1]) / (H[i] * H[i]))
 
     @staticmethod
-    def pchipend(h1, h2, delta1, delta2):
+    def pchipend(h1: float, h2: float, delta1: float, delta2: float) -> float:
         # // one-sided formula for endpoints
         # // non-centered shape-preserving three point formula
         d = ((2 * h1 + h2) * delta1 - h1 * delta2) / (h1 + h2)

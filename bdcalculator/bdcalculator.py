@@ -18,11 +18,11 @@ class BDrateCalculator(object):
     REJECTED_BALANCE_BAD_MEASUREMENTS = -40000
 
     @staticmethod
-    def _dedup_and_order(set_):
+    def _dedup_and_order(set_: list[tuple]) -> list[tuple]:
         return sorted(list(set(set_)), key=lambda x: x[0])
 
     @classmethod
-    def CalcBDRate(cls, setA, setB):
+    def CalcBDRate(cls, setA: list[tuple], setB: list[tuple]) -> float:
 
         # ==== added by zli =======
         setA = cls._dedup_and_order(setA)
@@ -64,7 +64,7 @@ class BDrateCalculator(object):
         return np.power(10, avg) - 1
 
     @staticmethod
-    def isCurveMonotonic(set_):
+    def isCurveMonotonic(set_: list[tuple]) -> bool:
         for i in range(len(set_) - 1):
 
             # ==== added by zli =======
@@ -81,7 +81,7 @@ class BDrateCalculator(object):
         return True
 
     @staticmethod
-    def ratesLookOkay(set_):
+    def ratesLookOkay(set_: list[tuple]) -> bool:
         for i in range(len(set_)):
             if set_[i][0] == 0:
                 return False
@@ -90,7 +90,7 @@ class BDrateCalculator(object):
     # // BD-rate calculation for arbitrary number (N) points
     # // cf. https://www.mathworks.com/moler/interp.pdf, sections 3.3 - 3.4
     @staticmethod
-    def bdrint(rdPointsList, minPSNR, maxPSNR):
+    def bdrint(rdPointsList: list[tuple], minPSNR: float, maxPSNR: float) -> float:
 
         N = len(rdPointsList)
 
