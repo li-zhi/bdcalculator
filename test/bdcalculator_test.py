@@ -318,6 +318,30 @@ class BDrateCalculatorJCTVCTest(unittest.TestCase):
                  (33928.7472, 37.2761),
                  (18910.912, 34.3147)])
 
+    def test_bd_rate_calculator_rate_equal(self):
+        with self.assertRaises(BDrateCalculator.NonMonotonic):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (61279.976, 40.3953),
+                 (61279.976, 37.247),
+                 (18883.6928, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (18910.912, 34.3147)])
+
+    def test_bd_rate_calculator_psnr_equal(self):
+        with self.assertRaises(BDrateCalculator.NonMonotonic):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (61279.976, 45.3953),
+                 (63905.6656, 37.247),
+                 (18883.6928, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 40.4232),
+                 (18910.912, 34.3147)])
+
     def test_bd_rate_calculator_rate_looksnotok(self):
         with self.assertRaises(BDrateCalculator.RatesHaveZeroValue):
             BDrateCalculator.CalcBDRate(
