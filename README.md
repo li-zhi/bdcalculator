@@ -5,15 +5,22 @@ BD-rate (Bjontegaard Delta rate) calculator for comparing bitrate-quality perfor
 
 https://docs.google.com/document/d/17xuKoD-O77b9c5CqYntMBMWEKC0yanTwtCnt8MatAOQ/edit?usp=sharing
 
-# Run tests
+# Useful commands
+
+## Run everything
 
 ```
-PYTHONPATH=bdcalculator python3 -m unittest discover --start test \
-    --pattern '*_test.py' --verbose --buffer
+tox
 ```
 
-# Run style check
+## Run tests only
 
 ```
-python3 -m flake8 bdcalculator test
+tox -e python
+```
+
+## Run style check only
+
+```
+tox -e style
 ```

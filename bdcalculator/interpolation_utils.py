@@ -34,8 +34,8 @@ class InterpolationUtils(object):
             distBegin = log_dist[0]
             yk = log_rate[0]
             segmentOfInterest = 0
-            for i in range(N-1):
-                if log_dist[i] <= distInLogScale and log_dist[i+1] >= distInLogScale:
+            for i in range(N - 1):
+                if log_dist[i] <= distInLogScale and log_dist[i + 1] >= distInLogScale:
                     distBegin = log_dist[i]
                     yk = log_rate[i]
                     segmentOfInterest = i
@@ -92,9 +92,9 @@ class InterpolationUtils(object):
 
         # // determine slope at all intermediate points: slope is weighted harmonic mean of two slopes (delta_{i-1}
         # and delta_i)
-        for i in range(1, N-1):
-            d.append((3 * H[i - 1] + 3 * H[i]) /
-                     ((2 * H[i] + H[i - 1]) / delta[i - 1] + (H[i] + 2 * H[i - 1]) / delta[i]))
+        for i in range(1, N - 1):
+            d.append(
+                (3 * H[i - 1] + 3 * H[i]) / ((2 * H[i] + H[i - 1]) / delta[i - 1] + (H[i] + 2 * H[i - 1]) / delta[i]))
 
         # // determine slope at end point
         d.append(cls.pchipend(H[N - 2], H[N - 3], delta[N - 2], delta[N - 3]))
