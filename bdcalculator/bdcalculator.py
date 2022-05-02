@@ -55,7 +55,7 @@ class BDrateCalculator(object):
 
         # no overlap, so mark it in a special way
         if minPSNR >= maxPSNR:
-            return cls.REJECTED_BD_RATE_NO_OVERLAP
+            raise AssertionError(cls.REJECTED_BD_RATE_NO_OVERLAP)
 
         vA = cls.bdrint(setA, minPSNR, maxPSNR)
         vB = cls.bdrint(setB, minPSNR, maxPSNR)
