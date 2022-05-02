@@ -270,6 +270,112 @@ class BDrateCalculatorJCTVCTest(unittest.TestCase):
             [(40370.12, 37.5982), (7587.0024, 35.4025), (2390.0944, 33.9194), (1017.0984, 32.0822)]),
             -0.018779823450567612, places=4)
 
+    def test_bd_rate_calculator_rate_nonmonotic(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (61279.976, 40.3953),
+                 (63905.6656, 37.247),
+                 (18883.6928, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (18910.912, 34.3147)])
+
+    def test_bd_rate_calculator_psnr_nonmonotic(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (61279.976, 45.3953),
+                 (63905.6656, 37.247),
+                 (18883.6928, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (18910.912, 34.3147)])
+
+    def test_bd_rate_calculator_rate_nonmonotic_b(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (61279.976, 40.3953),
+                 (43905.6656, 37.247),
+                 (18883.6928, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (73928.7472, 37.2761),
+                 (18910.912, 34.3147)])
+
+    def test_bd_rate_calculator_psnr_nonmonotic_b(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (63279.976, 41.3953),
+                 (61905.6656, 37.247),
+                 (68883.6928, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 30.4232),
+                 (33928.7472, 37.2761),
+                 (18910.912, 34.3147)])
+
+    def test_bd_rate_calculator_rate_looksnotok(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (71279.976, 40.3953),
+                 (63905.6656, 37.247),
+                 (0, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (18910.912, 34.3147)])
+
+    def test_bd_rate_calculator_rate_looksnotok_b(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (71279.976, 40.3953),
+                 (63905.6656, 37.247),
+                 (18883, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (0, 34.3147)])
+
+    def test_bd_rate_calculator_rate_not_enough_points(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (71279.976, 40.3953),
+                 (63905.6656, 37.247),
+                 (18883, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761)])
+
+    def test_bd_rate_calculator_rate_not_enough_points_b(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (71279.976, 40.3953),
+                 (63905.6656, 37.247)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (13928, 34.3147)])
+
+    def test_bd_rate_calculator_rate_nooverlap(self):
+        with self.assertRaises(AssertionError):
+            BDrateCalculator.CalcBDRate(
+                [(108048.8736, 53.6471),
+                 (71279.976, 50.3953),
+                 (63905.6656, 47.247),
+                 (18883, 44.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (13928, 34.3147)])
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
