@@ -18,11 +18,11 @@ class BDrateCalculator(object):
     REJECTED_BALANCE_BAD_MEASUREMENTS = -40000
 
     @staticmethod
-    def _dedup_and_order(set_):
+    def _dedup_and_order(set_: list[tuple]) -> list[tuple]:
         return sorted(list(set(set_)), key=lambda x: x[0])
 
     @classmethod
-    def CalcBDRate(cls, setA, setB):
+    def CalcBDRate(cls, setA: list[tuple], setB: list[tuple]) -> float:
 
         # ==== added by zli =======
         setA = cls._dedup_and_order(setA)
