@@ -270,6 +270,31 @@ class BDrateCalculatorJCTVCTest(unittest.TestCase):
             [(40370.12, 37.5982), (7587.0024, 35.4025), (2390.0944, 33.9194), (1017.0984, 32.0822)]),
             -0.018779823450567612, places=4)
 
+    def test_bd_rate_calculator_rdpoints_must_be_at_least_4(self):
+        with self.assertRaises(AssertionError):
+            self.assertAlmostEqual(BDrateCalculator.CalcBDRate(
+                [(108048.8736, 43.6471),
+                 (33905.6656, 37.247),
+                 (18883.6928, 34.2911)],
+                [(108061.2784, 43.6768),
+                 (61299.9936, 40.4232),
+                 (33928.7472, 37.2761),
+                 (18910.912, 34.3147)]),
+                -0.00465215420752807, places=4)
+
+    def test_bd_rate_calculator_non_monotnic(self):
+        with self.assertRaises(AssertionError):
+            self.assertAlmostEqual(BDrateCalculator.CalcBDRate(
+                [(40433.8848, 37.5761),
+                 (1622.7456, 35.3756),
+                 (2394.488, 33.8977),
+                 (1017.6184, 32.0603)],
+                [(40370.12, 37.5982),
+                 (7587.0024, 35.4025),
+                 (2390.0944, 33.9194),
+                 (1017.0984, 32.0822)]),
+                -0.018779823450567612, places=4)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
